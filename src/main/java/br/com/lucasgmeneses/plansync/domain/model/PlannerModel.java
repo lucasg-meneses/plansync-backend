@@ -1,4 +1,4 @@
-package br.com.lucasgmeneses.plansync.model;
+package br.com.lucasgmeneses.plansync.domain.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "TB_PLANNER")
@@ -15,14 +16,17 @@ import java.util.List;
 @Setter
 public class PlannerModel implements Serializable {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
+
+
     private String title;
+
     private long month;
     private long year;
 
     @OneToMany(mappedBy = "planner", cascade = CascadeType.ALL)
-    private List<TodoModel> todos;
+    private List<TodoModel> todos = new ArrayList<>();
 
     private String notes; // markdown support
 
@@ -30,13 +34,4 @@ public class PlannerModel implements Serializable {
     private Date dateCreated;
     private Date dateUpdated;
 
-    public PlannerModel(String title, long month, long year, String notes, UserModel owner) {
-        this.title = title;
-        this.month = month;
-        this.year = year;
-        this.notes = notes;
-        this.owner = owner;
-
-        todos = new ArrayList<>();
-    }
 }

@@ -1,21 +1,75 @@
 package br.com.lucasgmeneses.plansync.controller;
 
-import br.com.lucasgmeneses.plansync.model.PlannerModel;
-import br.com.lucasgmeneses.plansync.model.UserModel;
+import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerRequestDto;
+import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerResponseDto;
+import br.com.lucasgmeneses.plansync.domain.model.PlannerModel;
 import br.com.lucasgmeneses.plansync.repository.PlannerRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping("/planner")
 public class PlannerController {
     @Autowired
     private PlannerRepository plannerRepository;
-    @GetMapping("/planners")
-    public List<PlannerModel> getAllPlannerByUser(){
-        return plannerRepository.findAllByUser(new UserModel());
+
+    @GetMapping
+    public ResponseEntity<List<PlannerResponseDto>> getAllPlanners() {
+        return ResponseEntity.ok(plannerRepository.findAll().stream().map(PlannerResponseDto::new).toList());
+
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getPlannerById(@PathVariable String id) {
+        Optional<PlannerModel> plannerModel = plannerRepository.findById(id);
+        if (!plannerModel.isPresent())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No item found with this id");
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(new PlannerResponseDto(plannerModel.get()));
+
+    }
+
+    @PostMapping
+    public ResponseEntity<PlannerResponseDto> savePlanner(@RequestBody @Valid PlannerRequestDto plannerDto) {
+        PlannerModel plannerModel = new PlannerModel();
+        BeanUtils.copyProperties(plannerDto, plannerModel);
+        Date dateNow = new Date();
+        plannerModel.setDateCreated(dateNow);
+        plannerModel.setDateUpdated(dateNow);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(new PlannerResponseDto(plannerRepository.save(plannerModel)));
+
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PlannerResponseDto> updatePlanner(@RequestBody @Valid PlannerRequestDto plannerRequestDto, @PathVariable String id) {
+        Optional<PlannerModel> plannerModel = plannerRepository.findById(id);
+
+        plannerModel.map(planner -> {
+            planner.setTitle(plannerRequestDto.title());
+            planner.setMonth(planner.getMonth());
+            planner.setYear(plannerRequestDto.year());
+            planner.setNotes(plannerRequestDto.notes());
+            return plannerRepository.save(planner);
+        });
+        return ResponseEntity.status(HttpStatus.OK).body(new PlannerResponseDto(plannerModel.get()));
+    }
+    public ResponseEntity deletePlanner(@PathVariable String id){
+        try {
+            plannerRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).body("The item was successfully removed");
+        }catch (Exception exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Unable to remove item");
+        }
 
     }
 

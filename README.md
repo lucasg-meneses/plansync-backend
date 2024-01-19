@@ -11,7 +11,7 @@ lembrar das tarefas diarias e corriqueiras
 ### Principais
 -  [ ] CRUD **Usuario**(nome de usuário, email e senha);
 -  [ ] CRUD **Tarefa Pendente**(título, descrição, dia da semana, hora inicial e hora final);
--  [ ] CRUD **Planner Semanal**(título, mês e ano);
+-  [X] CRUD **Planner Semanal**(título, anotações,mês e ano);
 -  [ ] A **Tarefa Pendente** precisa ser definida em algum dia da semana;
 -  [ ] A **Tarefa Pendente** precisa ser definida em alguma hora inicial;
 -  [ ] O **Planner Semanal** precisa dar a opção de adicionar notas extras nele.

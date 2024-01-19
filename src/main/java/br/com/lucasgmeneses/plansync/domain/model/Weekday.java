@@ -1,4 +1,4 @@
-package br.com.lucasgmeneses.plansync.model.enuns;
+package br.com.lucasgmeneses.plansync.domain.model;
 
 import lombok.Getter;
 
