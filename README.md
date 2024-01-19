@@ -2,10 +2,9 @@
 RESTful API de um App para gestão de uma rotina, ajudando a organizar e a 
 lembrar das tarefas diarias e corriqueiras
 ## Tecnologias 🚀
-* Java 17+
+* JDK 17+
 * Spring Boot (3.2.1)
-* POSTGRESQL
-
+* POSTGRESQL 10+
 ## Requisitos 
 
 ### Principais
