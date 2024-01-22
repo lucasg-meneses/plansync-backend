@@ -5,6 +5,7 @@ import br.com.lucasgmeneses.plansync.domain.model.Weekday;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.UUID;
 
 public record TodoResponseDto(@NotBlank String id,
@@ -13,7 +14,9 @@ public record TodoResponseDto(@NotBlank String id,
                               @NotBlank Weekday weekday,
                               @NotNull String plannerId,
                               @NotBlank LocalTime startTime,
-                              @NotBlank LocalTime endTime) {
+                              @NotBlank LocalTime endTime,
+                              @NotNull Date dateCreated,
+                              @NotNull Date dateUpdated) {
     public TodoResponseDto(TodoModel todoModel){
         this(todoModel.getId(),
                 todoModel.getTitle(),
@@ -21,7 +24,9 @@ public record TodoResponseDto(@NotBlank String id,
                 todoModel.getWeekday(),
                 todoModel.getPlanner().getId(),
                 todoModel.getStartTime(),
-                todoModel.getEndTime()
+                todoModel.getEndTime(),
+                todoModel.getDateCreated(),
+                todoModel.getDateUpdated()
         );
     }
 }

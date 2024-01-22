@@ -2,8 +2,10 @@ package br.com.lucasgmeneses.plansync.controller;
 
 import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerRequestDto;
 import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerResponseDto;
+import br.com.lucasgmeneses.plansync.domain.dto.todo.TodoResponseDto;
 import br.com.lucasgmeneses.plansync.domain.model.PlannerModel;
 import br.com.lucasgmeneses.plansync.repository.PlannerRepository;
+import br.com.lucasgmeneses.plansync.repository.TodoRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +23,8 @@ import java.util.Optional;
 public class PlannerController {
     @Autowired
     private PlannerRepository plannerRepository;
+    @Autowired
+    private TodoRepository todoRepository;
 
     @GetMapping
     public ResponseEntity<List<PlannerResponseDto>> getAllPlanners() {
@@ -47,21 +52,21 @@ public class PlannerController {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new PlannerResponseDto(plannerRepository.save(plannerModel)));
 
-
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PlannerResponseDto> updatePlanner(@RequestBody @Valid PlannerRequestDto plannerRequestDto, @PathVariable String id) {
         Optional<PlannerModel> plannerModel = plannerRepository.findById(id);
 
-        plannerModel.map(planner -> {
+        Optional<PlannerModel> plannnerModelUpdated = plannerModel.map(planner -> {
             planner.setTitle(plannerRequestDto.title());
-            planner.setMonth(planner.getMonth());
+            planner.setMonth(plannerRequestDto.month());
             planner.setYear(plannerRequestDto.year());
             planner.setNotes(plannerRequestDto.notes());
+            planner.setDateUpdated(new Date());
             return plannerRepository.save(planner);
         });
-        return ResponseEntity.status(HttpStatus.OK).body(new PlannerResponseDto(plannerModel.get()));
+        return ResponseEntity.status(HttpStatus.OK).body(new PlannerResponseDto(plannnerModelUpdated.get()));
     }
     public ResponseEntity deletePlanner(@PathVariable String id){
         try {
@@ -72,5 +77,4 @@ public class PlannerController {
         }
 
     }
-
 }

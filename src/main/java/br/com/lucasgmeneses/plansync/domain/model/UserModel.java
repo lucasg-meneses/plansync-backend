@@ -1,6 +1,7 @@
 package br.com.lucasgmeneses.plansync.domain.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.Date;
