@@ -28,4 +28,3 @@ entre os dias da semana e horas do dia;
 - [ ] Implementar autenticação de consumidores da API;
 - [ ] Criar documentação(Swagger);
 - [ ] implementar autenticação 2FA para **Usuários**;
-- [ ] Suporte a multilinguagem.
