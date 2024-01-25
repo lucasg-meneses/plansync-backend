@@ -6,8 +6,6 @@
 
 RESTful API de um App para gestão de uma rotina, ajudando a organizar e a lembrar das tarefas diarias e corriqueiras.
 
-[Frontend](https://github.com/lucasg-meneses/plansync-frontend)
-
 ## Tecnologias 🚀
 * JDK 17+
 * Spring Boot (3.2.1)
@@ -30,3 +28,6 @@ entre os dias da semana e horas do dia;
 - [ ] Implementar autenticação de consumidores da API;
 - [ ] Criar documentação(Swagger);
 - [ ] implementar autenticação 2FA para **Usuários**;
+
+## Projetos Extras
+[Frontend](https://github.com/lucasg-meneses/plansync-frontend)
