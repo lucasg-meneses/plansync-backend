@@ -6,7 +6,7 @@
 
 RESTful API de um App para gestão de uma rotina, ajudando a organizar e a lembrar das tarefas diarias e corriqueiras.
 
-![Frontend](https://github.com/lucasg-meneses/plansync-frontend)
+[Frontend](https://github.com/lucasg-meneses/plansync-frontend)
 
 ## Tecnologias 🚀
 * JDK 17+
