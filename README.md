@@ -4,7 +4,7 @@
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 
-RESTful API de um App para gestão de uma rotina, ajudando a organizar e a lembrar das tarefas diarias e corriqueiras
+RESTful API de um App para gestão de uma rotina, ajudando a organizar e a lembrar das tarefas diarias e corriqueiras.
 
 ## Tecnologias 🚀
 * JDK 17+
@@ -16,10 +16,10 @@ RESTful API de um App para gestão de uma rotina, ajudando a organizar e a lembr
 -  [ ] CRUD **Usuario**(nome de usuário, email e senha);
 -  [X] CRUD **Tarefa Pendente**(título, descrição, dia da semana, hora inicial e hora final);
 -  [X] CRUD **Planner Semanal**(título, anotações,mês e ano);
--  [ ] A **Tarefa Pendente** precisa ser definida em algum dia da semana;
--  [ ] A **Tarefa Pendente** precisa ser definida em alguma hora inicial;
--  [ ] O **Planner Semanal** precisa dar a opção de adicionar notas extras nele.
--  [ ] **Planner Semanal** pode possuir um ou mais  **Tarefas Pendentes** distribuidos
+-  [X] A **Tarefa Pendente** precisa ser definida em algum dia da semana;
+-  [X] A **Tarefa Pendente** precisa ser definida em alguma hora inicial;
+-  [X] O **Planner Semanal** precisa dar a opção de adicionar notas extras nele.
+-  [X] **Planner Semanal** pode possuir um ou mais  **Tarefas Pendentes** distribuidos
 entre os dias da semana e horas do dia;
 -  [ ] O **Usuário** pode possuir um ou mais **Planner Semanal**.
 
@@ -28,3 +28,6 @@ entre os dias da semana e horas do dia;
 - [ ] Implementar autenticação de consumidores da API;
 - [ ] Criar documentação(Swagger);
 - [ ] implementar autenticação 2FA para **Usuários**;
+
+## Projetos Extras
+[Frontend](https://github.com/lucasg-meneses/plansync-frontend)
