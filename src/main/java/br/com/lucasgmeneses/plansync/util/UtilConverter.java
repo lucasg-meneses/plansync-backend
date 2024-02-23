@@ -4,7 +4,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 
-public class Converter {
+public class UtilConverter {
 
     public static LocalTime converterStringToLocalTime(String hoursString){
         // Definindo um formato para a string (HH:mm)

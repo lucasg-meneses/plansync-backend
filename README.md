@@ -26,8 +26,10 @@ entre os dias da semana e horas do dia;
 ### Opcionais
 
 - [ ] Implementar autenticação de consumidores da API;
-- [ ] Criar documentação(Swagger);
+- [ ] Criar documentação usando o Swagger ;
 - [ ] implementar autenticação 2FA para **Usuários**;
+- [ ] permitir que o Usuário deixe público seu planner para visualizá-lo.
+- [ ] permitir que multiplos usuarios possam manipular o mesmo planner.
 
 ## Projetos Extras
 [Frontend](https://github.com/lucasg-meneses/plansync-frontend)

@@ -1,8 +1,7 @@
 package br.com.lucasgmeneses.plansync.domain.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -14,6 +13,9 @@ import java.util.UUID;
 @Table(name = "TB_PLANNER")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class PlannerModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

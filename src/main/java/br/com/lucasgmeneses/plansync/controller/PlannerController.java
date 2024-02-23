@@ -11,6 +11,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,8 +29,8 @@ public class PlannerController {
     private TodoRepository todoRepository;
 
     @GetMapping
-    public ResponseEntity<List<PlannerResponseDto>> getAllPlanners() {
-        return ResponseEntity.ok(plannerRepository.findAll().stream().map(PlannerResponseDto::new).toList());
+    public ResponseEntity<List<PlannerResponseDto>> getAllPlanners(@AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(plannerRepository.findAllByOwner(userDetails).stream().map(PlannerResponseDto::new).toList());
 
     }
 

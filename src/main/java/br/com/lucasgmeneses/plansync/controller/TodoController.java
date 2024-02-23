@@ -1,14 +1,12 @@
 package br.com.lucasgmeneses.plansync.controller;
 
 
-import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerResponseDto;
 import br.com.lucasgmeneses.plansync.domain.dto.todo.TodoRequestDto;
 import br.com.lucasgmeneses.plansync.domain.dto.todo.TodoResponseDto;
-import br.com.lucasgmeneses.plansync.domain.model.PlannerModel;
 import br.com.lucasgmeneses.plansync.domain.model.TodoModel;
 import br.com.lucasgmeneses.plansync.repository.PlannerRepository;
 import br.com.lucasgmeneses.plansync.repository.TodoRepository;
-import br.com.lucasgmeneses.plansync.util.Converter;
+import br.com.lucasgmeneses.plansync.util.UtilConverter;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -49,8 +45,8 @@ public class TodoController {
         var todoModel = new TodoModel();
 
         BeanUtils.copyProperties(todoRequestDto, todoModel);
-        todoModel.setStartTime(Converter.converterStringToLocalTime(todoRequestDto.startTime()));
-        todoModel.setEndTime(Converter.converterStringToLocalTime(todoRequestDto.endTime()));
+        todoModel.setStartTime(UtilConverter.converterStringToLocalTime(todoRequestDto.startTime()));
+        todoModel.setEndTime(UtilConverter.converterStringToLocalTime(todoRequestDto.endTime()));
 
         Date dateNow = new Date();
         todoModel.setPlanner(plannerRepository.findById(todoRequestDto.idPlanner()).get());
@@ -66,8 +62,8 @@ public class TodoController {
             todo.setTitle(todoRequestDto.title());
             todo.setDescription(todoRequestDto.description());
             todo.setWeekday(todoRequestDto.weekday());
-            todo.setStartTime(Converter.converterStringToLocalTime(todoRequestDto.startTime()));
-            todo.setEndTime(Converter.converterStringToLocalTime(todoRequestDto.endTime()));
+            todo.setStartTime(UtilConverter.converterStringToLocalTime(todoRequestDto.startTime()));
+            todo.setEndTime(UtilConverter.converterStringToLocalTime(todoRequestDto.endTime()));
             todo.setDateUpdated(new Date());
             return todoRepository.save(todo);
         });
