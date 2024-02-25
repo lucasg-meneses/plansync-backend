@@ -16,7 +16,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-@Data
 public class TodoModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -31,6 +30,10 @@ public class TodoModel implements Serializable {
     @ManyToOne
     @JoinColumn(name = "planner_id")
     private PlannerModel planner;
+
+    @OneToOne
+    @JoinColumn(name = "owner_id")
+    private UserModel owner;
 
     private LocalTime startTime;
     private LocalTime endTime;

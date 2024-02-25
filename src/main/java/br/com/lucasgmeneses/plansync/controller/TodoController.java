@@ -1,9 +1,11 @@
 package br.com.lucasgmeneses.plansync.controller;
 
 
+import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerResponseDto;
 import br.com.lucasgmeneses.plansync.domain.dto.todo.TodoRequestDto;
 import br.com.lucasgmeneses.plansync.domain.dto.todo.TodoResponseDto;
 import br.com.lucasgmeneses.plansync.domain.model.TodoModel;
+import br.com.lucasgmeneses.plansync.domain.model.UserModel;
 import br.com.lucasgmeneses.plansync.repository.PlannerRepository;
 import br.com.lucasgmeneses.plansync.repository.TodoRepository;
 import br.com.lucasgmeneses.plansync.util.UtilConverter;
@@ -12,6 +14,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -27,9 +31,8 @@ public class TodoController {
     private PlannerRepository plannerRepository;
 
     @GetMapping
-    public ResponseEntity<List<TodoResponseDto>> getAllTodos() {
-        return ResponseEntity.ok(todoRepository.findAll().stream().map(TodoResponseDto::new).toList());
-
+    public ResponseEntity<List<TodoResponseDto>> getAllTodos(@AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(todoRepository.findAllByOwner(userDetails).stream().map(TodoResponseDto::new).toList());
     }
 
     @GetMapping("/{id}")
@@ -41,13 +44,13 @@ public class TodoController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(new TodoResponseDto(todoModel.get()));
     }
     @PostMapping
-    public ResponseEntity<TodoResponseDto> saveTodo(@RequestBody @Valid TodoRequestDto todoRequestDto){
+    public ResponseEntity<TodoResponseDto> saveTodo(@AuthenticationPrincipal UserDetails userDetails, @RequestBody @Valid TodoRequestDto todoRequestDto){
         var todoModel = new TodoModel();
 
         BeanUtils.copyProperties(todoRequestDto, todoModel);
         todoModel.setStartTime(UtilConverter.converterStringToLocalTime(todoRequestDto.startTime()));
         todoModel.setEndTime(UtilConverter.converterStringToLocalTime(todoRequestDto.endTime()));
-
+        todoModel.setOwner((UserModel) userDetails);
         Date dateNow = new Date();
         todoModel.setPlanner(plannerRepository.findById(todoRequestDto.idPlanner()).get());
         todoModel.setDateCreated(dateNow);

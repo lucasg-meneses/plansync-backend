@@ -4,6 +4,7 @@ import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerRequestDto;
 import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerResponseDto;
 import br.com.lucasgmeneses.plansync.domain.dto.todo.TodoResponseDto;
 import br.com.lucasgmeneses.plansync.domain.model.PlannerModel;
+import br.com.lucasgmeneses.plansync.domain.model.UserModel;
 import br.com.lucasgmeneses.plansync.repository.PlannerRepository;
 import br.com.lucasgmeneses.plansync.repository.TodoRepository;
 import jakarta.validation.Valid;
@@ -44,10 +45,13 @@ public class PlannerController {
 
     }
 
+
     @PostMapping
-    public ResponseEntity<PlannerResponseDto> savePlanner(@RequestBody @Valid PlannerRequestDto plannerDto) {
+    public ResponseEntity<PlannerResponseDto> savePlanner(@AuthenticationPrincipal UserDetails userDetails, @RequestBody @Valid PlannerRequestDto plannerDto) {
         PlannerModel plannerModel = new PlannerModel();
         BeanUtils.copyProperties(plannerDto, plannerModel);
+        plannerModel.setOwner((UserModel) userDetails);
+
         Date dateNow = new Date();
         plannerModel.setDateCreated(dateNow);
         plannerModel.setDateUpdated(dateNow);

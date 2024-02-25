@@ -31,8 +31,10 @@ public class PlannerModel implements Serializable {
     private List<TodoModel> todos = new ArrayList<>();
 
     private String notes; // markdown support
-
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private UserModel owner;
+
     private Date dateCreated;
     private Date dateUpdated;
 
