@@ -10,7 +10,7 @@ import java.time.LocalTime;
 
 public record TodoRequestDto(@NotBlank String title,
                              String description,
-                             @NotNull Weekday weekday,
+                             @NotNull String weekday,
                              @NotBlank String idPlanner,
                              @NotBlank String startTime,
                              @NotBlank String endTime) {

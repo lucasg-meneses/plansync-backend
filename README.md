@@ -13,7 +13,7 @@ RESTful API de um App para gestão de uma rotina, ajudando a organizar e a lembr
 ## Requisitos 
 
 ### Principais
--  [ ] CRUD **Usuario**(nome de usuário, email e senha);
+-  [X] CRUD **Usuario**(nome de usuário, email e senha);
 -  [X] CRUD **Tarefa Pendente**(título, descrição, dia da semana, hora inicial e hora final);
 -  [X] CRUD **Planner Semanal**(título, anotações,mês e ano);
 -  [X] A **Tarefa Pendente** precisa ser definida em algum dia da semana;
@@ -21,7 +21,7 @@ RESTful API de um App para gestão de uma rotina, ajudando a organizar e a lembr
 -  [X] O **Planner Semanal** precisa dar a opção de adicionar notas extras nele.
 -  [X] **Planner Semanal** pode possuir um ou mais  **Tarefas Pendentes** distribuidos
 entre os dias da semana e horas do dia;
--  [ ] O **Usuário** pode possuir um ou mais **Planner Semanal**.
+-  [X] O **Usuário** pode possuir um ou mais **Planner Semanal**.
 
 ### Opcionais
 

@@ -24,8 +24,8 @@ public class TodoModel implements Serializable {
     private String title;
     private String description; // support markdown
 
-    @Enumerated(EnumType.STRING)
-    private Weekday weekday;
+
+    private String weekday;
 
     @ManyToOne
     @JoinColumn(name = "planner_id")

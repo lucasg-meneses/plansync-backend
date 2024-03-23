@@ -11,7 +11,7 @@ import java.util.UUID;
 public record TodoResponseDto(@NotBlank String id,
                               @NotBlank String title,
                               @NotNull String description,
-                              @NotBlank Weekday weekday,
+                              @NotBlank String weekday,
                               @NotNull String plannerId,
                               @NotBlank LocalTime startTime,
                               @NotBlank LocalTime endTime,
