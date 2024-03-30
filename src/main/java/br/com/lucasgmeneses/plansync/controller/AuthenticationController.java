@@ -38,15 +38,15 @@ public class AuthenticationController {
         var token = tokenService.generateToken((UserModel) auth.getPrincipal());
         return ResponseEntity.ok(new LoginResponseDto(token));
     } catch (Exception ex){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
 
     }
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid UserRequestDto userRequestDto){
-        if (userRepository.findByLogin(userRequestDto.login()) != null) return ResponseEntity.badRequest().build();
-
+        if (userRepository.findByLogin(userRequestDto.login()) != null) return ResponseEntity.status(HttpStatus.FOUND).body("Username already registered");
+        if (userRepository.findByEmail(userRequestDto.email()) != null) return ResponseEntity.status(HttpStatus.FOUND).body("Email already registered");
         UserModel newUser = new UserModel();
         newUser.setEmail(userRequestDto.email());
         newUser.setLogin(userRequestDto.login());
@@ -59,9 +59,9 @@ public class AuthenticationController {
         newUser.setDateUpdated(new Date());
         try {
             userRepository.save(newUser);
-            return ResponseEntity.status(HttpStatus.CREATED).body("account created successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (Exception e){
-            return ResponseEntity.unprocessableEntity().body(e);
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
 
 
