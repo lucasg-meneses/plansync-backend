@@ -4,6 +4,7 @@ import br.com.lucasgmeneses.plansync.config.security.TokenService;
 import br.com.lucasgmeneses.plansync.domain.dto.user.AutenticationRequestDto;
 import br.com.lucasgmeneses.plansync.domain.dto.user.LoginResponseDto;
 import br.com.lucasgmeneses.plansync.domain.dto.user.UserRequestDto;
+import br.com.lucasgmeneses.plansync.domain.dto.user.UserResponseDto;
 import br.com.lucasgmeneses.plansync.domain.model.UserModel;
 import br.com.lucasgmeneses.plansync.domain.model.UserRole;
 import br.com.lucasgmeneses.plansync.repository.UserRepository;
@@ -14,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,7 +66,6 @@ public class AuthenticationController {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
         }
-
-
     }
+
 }

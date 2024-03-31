@@ -3,6 +3,7 @@ package br.com.lucasgmeneses.plansync.controller;
 import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerRequestDto;
 import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerResponseDto;
 import br.com.lucasgmeneses.plansync.domain.dto.todo.TodoResponseDto;
+import br.com.lucasgmeneses.plansync.domain.dto.user.UserRequestDto;
 import br.com.lucasgmeneses.plansync.domain.model.PlannerModel;
 import br.com.lucasgmeneses.plansync.domain.model.UserModel;
 import br.com.lucasgmeneses.plansync.repository.PlannerRepository;
@@ -30,8 +31,13 @@ public class PlannerController {
     private TodoRepository todoRepository;
 
     @GetMapping
-    public ResponseEntity<List<PlannerResponseDto>> getAllPlanners(@AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(plannerRepository.findAllByOwner(userDetails).stream().map(PlannerResponseDto::new).toList());
+    public ResponseEntity<List<PlannerResponseDto>> getAllPlanners(@AuthenticationPrincipal UserDetails userDetails, @RequestBody @Valid UserRequestDto userRequestDto) {
+        try {
+            return ResponseEntity.ok(plannerRepository.findAllByOwner(userDetails).stream().map(PlannerResponseDto::new).toList());
+        }catch (Exception exception){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+
 
     }
 
