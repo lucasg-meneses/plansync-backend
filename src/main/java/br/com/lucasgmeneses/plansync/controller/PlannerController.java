@@ -31,7 +31,7 @@ public class PlannerController {
     private TodoRepository todoRepository;
 
     @GetMapping
-    public ResponseEntity<List<PlannerResponseDto>> getAllPlanners(@AuthenticationPrincipal UserDetails userDetails, @RequestBody @Valid UserRequestDto userRequestDto) {
+    public ResponseEntity<List<PlannerResponseDto>> getAllPlanners(@AuthenticationPrincipal UserDetails userDetails) {
         try {
             return ResponseEntity.ok(plannerRepository.findAllByOwner(userDetails).stream().map(PlannerResponseDto::new).toList());
         }catch (Exception exception){
