@@ -1,5 +1,6 @@
 package br.com.lucasgmeneses.plansync.controller;
 
+import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerGetAllResponseDto;
 import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerRequestDto;
 import br.com.lucasgmeneses.plansync.domain.dto.planner.PlannerResponseDto;
 import br.com.lucasgmeneses.plansync.domain.dto.todo.TodoResponseDto;
@@ -17,10 +18,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/planner")
@@ -31,9 +29,12 @@ public class PlannerController {
     private TodoRepository todoRepository;
 
     @GetMapping
-    public ResponseEntity<List<PlannerResponseDto>> getAllPlanners(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<List<PlannerGetAllResponseDto>> getAllPlanners(@AuthenticationPrincipal UserDetails userDetails) {
         try {
-            return ResponseEntity.ok(plannerRepository.findAllByOwner(userDetails).stream().map(PlannerResponseDto::new).toList());
+            return ResponseEntity.ok(plannerRepository.findAllByOwner(userDetails)
+                    .stream()
+                    .sorted((o1, o2) -> o2.getDateUpdated().compareTo(o1.getDateUpdated()))
+                    .map(PlannerGetAllResponseDto::new).toList());
         }catch (Exception exception){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

@@ -31,8 +31,8 @@ public class TodoController {
     private PlannerRepository plannerRepository;
 
     @GetMapping
-    public ResponseEntity<List<TodoResponseDto>> getAllTodos(@AuthenticationPrincipal UserDetails userDetails) {
-        return ResponseEntity.ok(todoRepository.findAllByOwner(userDetails).stream().map(TodoResponseDto::new).toList());
+    public ResponseEntity<List<TodoResponseDto>> getAllTodosByPlanner(@PathVariable String idPlanner, @AuthenticationPrincipal UserDetails userDetails) {
+        return ResponseEntity.ok(todoRepository.findAllByOwnerAndPlannerId(userDetails, idPlanner).stream().map(TodoResponseDto::new).toList());
     }
 
     @GetMapping("/{id}")

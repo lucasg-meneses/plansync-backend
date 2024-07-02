@@ -14,9 +14,7 @@ public record TodoResponseDto(@NotBlank String id,
                               @NotBlank String weekday,
                               @NotNull String plannerId,
                               @NotBlank LocalTime startTime,
-                              @NotBlank LocalTime endTime,
-                              @NotNull Date dateCreated,
-                              @NotNull Date dateUpdated) {
+                              @NotBlank LocalTime endTime) {
     public TodoResponseDto(TodoModel todoModel){
         this(todoModel.getId(),
                 todoModel.getTitle(),
@@ -24,9 +22,7 @@ public record TodoResponseDto(@NotBlank String id,
                 todoModel.getWeekday(),
                 todoModel.getPlanner().getId(),
                 todoModel.getStartTime(),
-                todoModel.getEndTime(),
-                todoModel.getDateCreated(),
-                todoModel.getDateUpdated()
+                todoModel.getEndTime()
         );
     }
 }

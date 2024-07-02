@@ -15,19 +15,13 @@ public record PlannerResponseDto(@NotBlank String id,
                                  @NotBlank String title,
                                  @NotNull Long month,
                                  @NotNull Long year,
-                                 @NotNull List<TodoResponseDto> todos,
-                                 @NotNull String notes,
-                                 @NotNull Date dateCreated,
-                                 @NotNull Date dateUpdated) {
+                                 @NotNull String notes) {
     public PlannerResponseDto(PlannerModel plannerModel){
         this(plannerModel.getId(),
                 plannerModel.getTitle(),
                 plannerModel.getMonth(),
                 plannerModel.getYear(),
-                plannerModel.getTodos() != null ? plannerModel.getTodos().stream().map(TodoResponseDto::new).toList(): new ArrayList<>(),
-                plannerModel.getNotes(),
-                plannerModel.getDateCreated(),
-                plannerModel.getDateUpdated()
+                plannerModel.getNotes()
         );
     }
 

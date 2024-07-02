@@ -12,5 +12,5 @@ import java.util.List;
 @Repository
 public interface TodoRepository extends JpaRepository<TodoModel, String> {
     List<TodoModel> findByPlanner(PlannerModel planner);
-    List<TodoModel> findAllByOwner(UserDetails user);
+    List<TodoModel> findAllByOwnerAndPlannerId(UserDetails user, String idPlanner);
 }
